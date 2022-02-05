@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<style type="text/css">
+	.texto3{
+		color: red;
+	}
+
+</style>
+
+</head>
+<body>
+
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+
+	$("#hh1").text("cruel !");
+
+	console.log($("#hh1"));
+
+
+	$("#nuevo").click(function(){
+
+		$("#nuevo").fadeOut(2000);
+
+	});
+
+
+	
+
+
+	$("#bOcultar").click(function(){
+
+		$("#hh1").hide();
+	}
+	);
+
+
+	$("#bValor").click(function(){
+
+		alert( $("#txtNombre").val() );
+
+	});
+
+
+
+	//$("h1").remove();
+
+
+});
+
+
+
+	
+</script>
+
+<h1>Hola mundo</h1>
+<h1 id="hh1"> cruel</h1>
+<h1 class="texto3"> ahora</h1>
+<h2 class="texto3" id="nuevo"> nuevo</h2>
+
+
+
+<input type="text" name="txtNombre" id="txtNombre">
+
+<br>
+
+<button id="bOcultar">ocultar</button>
+
+<button id="bValor">valor</button>
+
+
+<script type="text/javascript">
+	
+//ubica por el tipo de elemento
+$("h1")	
+$("#hh1")
+$(".texto3")
+
+
+
+</script>
+
+</body>
+</html>

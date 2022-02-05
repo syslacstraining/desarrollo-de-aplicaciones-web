@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+<label>Codigo:</label>
+<input type="text" name="txtCodigo" id="txtCodigo">
+<br>
+<label>Nombre:</label>
+<input type="text" name="txtNombre" id="txtNombre">
+<br>
+
+<label id="message"></label>
+
+<br>
+<button id="bGuardar" onclick="guardar()" >Guardar</button>
+
+
+
+<script type="text/javascript">
+
+/*
+$("bGuardar").click(function(){
+	//codigo de guardado
+
+});
+*/
+
+
+function guardar()
+{
+	$.ajax({
+	method:"POST",
+	url:"http://semana04.com/api/v1/productos",
+	data:{codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val()}
+	}).done(function(response){
+
+		console.log(response);
+
+
+		$("#message").text("El producto se registro correctamente");
+		$("#txtCodigo").val("");
+		$("#txtNombre").val("");
+	});
+}
+
+	
+</script>
+
+
+
+
+
+
+</body>
+</html>

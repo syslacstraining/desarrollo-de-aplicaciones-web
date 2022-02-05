@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+<p id="message"></p>
+
+
+<script type="text/javascript">
+
+function f1()
+{
+	document.write("hola 1 <br>");
+
+	setTimeout(fprocesar,1000);
+
+}
+
+function fprocesar()
+{
+	
+	var suma=0;
+	for(i=0;i<1000000;i++)
+	{
+		suma++;
+	}
+
+	//document.write("termino de sumar <br>");
+
+	//alert("termono");
+
+	$("#message").text("termino de sumar ");
+}
+
+
+function f2()
+{
+	document.write("hola 2 <br>");
+
+}
+
+function f3()
+{
+	document.write("hola 3 <br>");
+}
+
+f1();
+f2();
+f3();
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

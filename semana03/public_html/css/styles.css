@@ -1,0 +1,21 @@
+.header-menu
+{
+	padding: 10px;
+}
+
+
+nav li
+{
+	padding: 10px;
+}
+
+nav li a 
+{
+	text-decoration: none;
+	color: green;
+}
+
+#nav1
+{
+	padding: 20px;
+}
