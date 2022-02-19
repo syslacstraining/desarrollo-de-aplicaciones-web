@@ -4,7 +4,7 @@
 
 <div class="modal-header">   
 
-<h4><b>Nuevo producto</b></h4>             
+<h4><b>Nuevo Categoria</b></h4>             
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,7 +13,7 @@
 	<div class="modal-body">
              
 
-              <form id="frmNewProducto">
+              <form id="frmNewCategoria">
 
                 <div class="card-body">
 
@@ -33,13 +33,6 @@
 			                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" placeholder="Ingrese el nombre">
 			                </div>
                 		</div>
-
-                    <div class="col-md-12">
-                      <div class="form-group">
-                          <label for="txtPrecio">Precio</label>
-                          <input type="number" name="txtPrecio" class="form-control" id="txtPrecio" placeholder="Ingrese el precio">
-                      </div>
-                    </div>
 
 
                 		
@@ -80,13 +73,12 @@ $(function () {
 
     	$.ajax({
 			method:"POST",
-			url:"http://apis-app.com/api/v1/productos",
-			data:{codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val(),precio:$("#txtPrecio").val()}
+			url:"http://apis-app.com/api/v1/categorias",
+			data:{codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val()}
 			}).done(function(response){
 				
 				$("#txtCodigo").val("");
 				$("#txtNombre").val("");
-        $("#txtPrecio").val("");
 
 
 				$('#mdCreate').modal('hide');
@@ -97,15 +89,12 @@ $(function () {
 
     }
   });
-  $('#frmNewProducto').validate({
+  $('#frmNewCategoria').validate({
     rules: {
       txtCodigo: {
         required: true
       },
       txtNombre: {
-        required: true
-      },
-      txtPrecio: {
         required: true
       },
     },
@@ -115,9 +104,6 @@ $(function () {
       },
       txtNombre: {
         required: "Ingrese el nombre"
-      },
-      txtPrecio: {
-        required: "Ingrese el precio"
       }
     },
     errorElement: 'span',

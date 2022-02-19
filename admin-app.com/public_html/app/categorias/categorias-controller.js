@@ -1,14 +1,14 @@
-var TABLE_PRODUCTOS;
-var ID_ELIMINAR_PRODUCTO;
-var CARGAR_ID_PRODUCTO;
+var TABLE_CATEGORIAS;
+var ID_ELIMINAR_CATEGORIA;
+var CARGAR_ID_CATEGORIA;
 
 
 $(document).ready(function(){
 
-TABLE_PRODUCTOS=$('#listProductos').DataTable( {
+TABLE_CATEGORIAS=$('#listCategorias').DataTable( {
         "ajax":{
             type: 'get',
-            url: "http://apis-app.com/api/v1/productos",
+            url: "http://apis-app.com/api/v1/categorias",
             dataSrc: 'data',
             cache: true
             },
@@ -16,36 +16,17 @@ TABLE_PRODUCTOS=$('#listProductos').DataTable( {
         	{
         		"targets": 0,
                 "render": function ( data, type, row ) {
-                    //return row.created_at;
-
                     return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
                 }                
             },
             { data: 'codigo' },
             { data: 'nombre' },
-            {
-        		"targets": 3,
-                "render": function ( data, type, row ) {
-                	
-
-                	if(row.categoria)
-                	{
-
-                		return row.categoria.nombre;
-                	}
-                	else
-                	{
-                		return "";
-                	}
-                    
-                }                
-            },
-            { data: 'precio' },
+            
             {
         		"targets": 5,
                 "render": function ( data, type, row ) {
                 	
-                	return "<a href='#' onclick=\"showEditarProducto('"+row.id+"')\">Editar</a> | <a href='#' onclick=\"confirmarEliminacion('"+row.id+"')\">Eliminar</a>"
+                	return "<a href='#' onclick=\"showEditarCategoria('"+row.id+"')\">Editar</a> | <a href='#' onclick=\"confirmarEliminacion('"+row.id+"')\">Eliminar</a>"
                     
                 }                
             },
@@ -59,13 +40,11 @@ TABLE_PRODUCTOS=$('#listProductos').DataTable( {
 
 
 
-function showNewProducto()
+function showNewCategoria()
 {
-    console.log("entro a nuevo producto");
-
     
 
-    var url="/views/productos/frm-new-producto.html";
+    var url="/views/categorias/frm-new-categoria.html";
 
     $('#modalContainer1').load(url, function (result) {
 
@@ -74,27 +53,27 @@ function showNewProducto()
 }
 
 
-function showEditarProducto(id)
+function showEditarCategoria(id)
 {
-    CARGAR_ID_PRODUCTO=id;
+    CARGAR_ID_CATEGORIA=id;
 
-    var url="/views/productos/frm-editar-producto.html";
+    var url="/views/categorias/frm-editar-categoria.html";
 
     $('#modalContainer1').load(url, function (result) {
 
         $('#mdCreate').modal({ show: true,  backdrop: 'static', size: 'lg', keyboard: false });
         
-        loadDataProducto();
+        loadDataCategoria();
 
     });
 }
 
-function loadDataProducto()
+function loadDataCategoria()
 {
  
     $.ajax({
             method:"GET",
-            url:"http://apis-app.com/api/v1/productos/"+CARGAR_ID_PRODUCTO
+            url:"http://apis-app.com/api/v1/categorias/"+CARGAR_ID_CATEGORIA
             }).done(function(response){
 
                 $("#txtCodigo").val(response.data.codigo);
@@ -106,15 +85,15 @@ function loadDataProducto()
 
 function updateDataTable()
 {
-    TABLE_PRODUCTOS.ajax.reload();
+    TABLE_CATEGORIAS.ajax.reload();
 }
 
 
 function confirmarEliminacion(id)
 {
-    ID_ELIMINAR_PRODUCTO=id;
+    ID_ELIMINAR_CATEGORIA=id;
 
-     var url="/views/productos/frm-confirmar-eliminar.html";
+     var url="/views/categorias/frm-confirmar-eliminar.html";
 
     $('#modalContainer1').load(url, function (result) {
 
@@ -122,13 +101,13 @@ function confirmarEliminacion(id)
     });
 }
 
-function eliminarProducto()
+function eliminarCategoria()
 {
-    console.log(ID_ELIMINAR_PRODUCTO);
+    
 
     $.ajax({
             method:"DELETE",
-            url:"http://apis-app.com/api/v1/productos/"+ID_ELIMINAR_PRODUCTO
+            url:"http://apis-app.com/api/v1/categorias/"+ID_ELIMINAR_CATEGORIA
             }).done(function(response){
                 
               

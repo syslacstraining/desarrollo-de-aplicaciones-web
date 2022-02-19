@@ -34,6 +34,13 @@
 			                </div>
                 		</div>
 
+                    <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="txtPrecio">Precio</label>
+                          <input type="number" name="txtPrecio" class="form-control" id="txtPrecio" placeholder="Ingrese el precio">
+                      </div>
+                    </div>
+
 
                 		
                 	</div>
@@ -74,12 +81,12 @@ $(function () {
     	$.ajax({
 			method:"PUT",
 			url:"http://apis-app.com/api/v1/productos",
-			data:{id:CARGAR_ID_PRODUCTO,codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val()}
+			data:{id:CARGAR_ID_PRODUCTO,codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val(),precio:$("#txtPrecio").val()}
 			}).done(function(response){
 				
 				$("#txtCodigo").val("");
 				$("#txtNombre").val("");
-
+        $("#txtPrecio").val("");
 
 				$('#mdCreate').modal('hide');
 
@@ -97,6 +104,9 @@ $(function () {
       txtNombre: {
         required: true
       },
+      txtPrecio: {
+        required: true
+      },
     },
     messages: {
       txtCodigo: {
@@ -104,6 +114,9 @@ $(function () {
       },
       txtNombre: {
         required: "Ingrese el nombre"
+      },
+      txtPrecio: {
+        required: "Ingrese el precio"
       }
     },
     errorElement: 'span',

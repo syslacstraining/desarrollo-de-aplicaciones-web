@@ -19,6 +19,10 @@
 
 <body class="hold-transition sidebar-mini">
 
+<div id="modalContainer1">
+</div>
+
+
 <div class="wrapper">
 
 
@@ -56,7 +60,7 @@
     	<div class="container-fluid">
     		<div class="row">
     			<div class="col-md-12" style="text-align: right;padding-bottom: 20px;">
-    				<button>Nuevo categoria</button>
+    				<button onclick="showNewCategoria()">Nuevo categoria</button>
     			</div>
     			
     		</div>
@@ -104,11 +108,18 @@
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 
+<!-- jquery-validation -->
+<script src="/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/assets/plugins/jquery-validation/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
 <script type="text/javascript" src="/app/layout/main-layout-controller.js"></script>
 
 
 
-<script type="text/javascript" src="/app/productos/productos-controller.js"></script>
+<script type="text/javascript" src="/app/categorias/categorias-controller.js"></script>
 
 </body>
 </html>
