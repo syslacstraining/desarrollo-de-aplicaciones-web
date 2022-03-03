@@ -73,7 +73,10 @@ $(function () {
 
     	$.ajax({
 			method:"PUT",
-			url:"http://apis-app.com/api/v1/categorias",
+      headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+			url:APIS_URL+"/api/v1/categorias",
 			data:{id:CARGAR_ID_CATEGORIA,codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val()}
 			}).done(function(response){
 				

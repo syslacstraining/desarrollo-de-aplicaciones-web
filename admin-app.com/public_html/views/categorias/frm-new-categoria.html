@@ -69,11 +69,15 @@
 $(function () {
   $.validator.setDefaults({
     submitHandler: function () {
-      
+
+  console.log(_access_token);      
 
     	$.ajax({
-			method:"POST",
-			url:"http://apis-app.com/api/v1/categorias",
+			method:"post",
+      headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+			url:APIS_URL+"/api/v1/categorias",
 			data:{codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val()}
 			}).done(function(response){
 				

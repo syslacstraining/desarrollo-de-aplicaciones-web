@@ -1,3 +1,11 @@
+
+var _access_token = sessionStorage.getItem('_access_token');
+
+
+if(!_access_token)
+	window.location="/views/login.html"
+
+
 $(document).ready(function(){
 
 	$("#header").load("/views/layout/header.html");

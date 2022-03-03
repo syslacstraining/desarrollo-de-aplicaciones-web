@@ -8,7 +8,10 @@ $(document).ready(function(){
 TABLE_CATEGORIAS=$('#listCategorias').DataTable( {
         "ajax":{
             type: 'get',
-            url: "http://apis-app.com/api/v1/categorias",
+            url: APIS_URL+"/api/v1/categorias",
+            headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
             dataSrc: 'data',
             cache: true
             },
@@ -73,7 +76,10 @@ function loadDataCategoria()
  
     $.ajax({
             method:"GET",
-            url:"http://apis-app.com/api/v1/categorias/"+CARGAR_ID_CATEGORIA
+            headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+            url:APIS_URL+"/api/v1/categorias/"+CARGAR_ID_CATEGORIA
             }).done(function(response){
 
                 $("#txtCodigo").val(response.data.codigo);
@@ -107,7 +113,10 @@ function eliminarCategoria()
 
     $.ajax({
             method:"DELETE",
-            url:"http://apis-app.com/api/v1/categorias/"+ID_ELIMINAR_CATEGORIA
+            headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+            url:APIS_URL+"/api/v1/categorias/"+ID_ELIMINAR_CATEGORIA
             }).done(function(response){
                 
               

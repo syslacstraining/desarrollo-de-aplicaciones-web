@@ -20,6 +20,16 @@
 
                 	<div class="row">
 
+                    <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="ddlCategoria">Categoría</label>
+                          <select class="custom-select" id="ddlCategoria">
+                            <option value="" selected>Selecciona una opcion...</option>
+                            
+                          </select>
+                      </div>
+                    </div>
+
                 		<div class="col-md-12">
                 			<div class="form-group">
 		                    	<label for="txtCodigo">Código</label>
@@ -80,8 +90,17 @@ $(function () {
 
     	$.ajax({
 			method:"PUT",
-			url:"http://apis-app.com/api/v1/productos",
-			data:{id:CARGAR_ID_PRODUCTO,codigo:$("#txtCodigo").val(),nombre:$("#txtNombre").val(),precio:$("#txtPrecio").val()}
+      headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+			url:APIS_URL+"/api/v1/productos",
+			data:{
+        id:CARGAR_ID_PRODUCTO,
+        categoria_id:$("#ddlCategoria").val(),
+        codigo:$("#txtCodigo").val(),
+        nombre:$("#txtNombre").val(),
+        precio:$("#txtPrecio").val()
+      }
 			}).done(function(response){
 				
 				$("#txtCodigo").val("");

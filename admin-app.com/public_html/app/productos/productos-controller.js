@@ -8,7 +8,10 @@ $(document).ready(function(){
 TABLE_PRODUCTOS=$('#listProductos').DataTable( {
         "ajax":{
             type: 'get',
-            url: "http://apis-app.com/api/v1/productos",
+            url: APIS_URL+"/api/v1/productos",
+            headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
             dataSrc: 'data',
             cache: true
             },
@@ -65,7 +68,7 @@ function showNewProducto()
 
     
 
-    var url="/views/productos/frm-new-producto.html";
+    var url="/views/productos/frm-new-producto.html?v=3.0";
 
     $('#modalContainer1').load(url, function (result) {
 
@@ -78,7 +81,7 @@ function showEditarProducto(id)
 {
     CARGAR_ID_PRODUCTO=id;
 
-    var url="/views/productos/frm-editar-producto.html";
+    var url="/views/productos/frm-editar-producto.html?v=3.2";
 
     $('#modalContainer1').load(url, function (result) {
 
@@ -89,16 +92,43 @@ function showEditarProducto(id)
     });
 }
 
+
+
 function loadDataProducto()
 {
- 
+    var _args={
+        callback:function(data)
+        {
+             $.each(data, function (i, item) {
+
+                $("#ddlCategoria").append(new Option(item.nombre, item.id));
+            
+              });
+
+             getDataProducto();
+        }
+    };
+
+    loadCategorias(_args);
+
+}
+
+function getDataProducto()
+{
     $.ajax({
             method:"GET",
-            url:"http://apis-app.com/api/v1/productos/"+CARGAR_ID_PRODUCTO
+            headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+            url:APIS_URL+"/api/v1/productos/"+CARGAR_ID_PRODUCTO
             }).done(function(response){
+
+                //console.log(response.data);
+                $('#ddlCategoria option[value='+response.data.categoria_id+']').prop('selected', 'selected');
 
                 $("#txtCodigo").val(response.data.codigo);
                 $("#txtNombre").val(response.data.nombre);
+                $("#txtPrecio").val(response.data.precio);
                 
             });
 }
@@ -124,16 +154,35 @@ function confirmarEliminacion(id)
 
 function eliminarProducto()
 {
-    console.log(ID_ELIMINAR_PRODUCTO);
-
     $.ajax({
             method:"DELETE",
-            url:"http://apis-app.com/api/v1/productos/"+ID_ELIMINAR_PRODUCTO
+            headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+            url:APIS_URL+"/api/v1/productos/"+ID_ELIMINAR_PRODUCTO
             }).done(function(response){
                 
               
                 $('#mdCreate').modal('hide');
 
                 updateDataTable();
+            });
+}
+
+
+
+function loadCategorias(params)
+{
+    $.ajax({
+            method:"GET",
+            headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+            url:APIS_URL+"/api/v1/categorias"
+            }).done(function(response){
+
+                if(params.callback)
+                    params.callback(response.data);
+            
             });
 }
