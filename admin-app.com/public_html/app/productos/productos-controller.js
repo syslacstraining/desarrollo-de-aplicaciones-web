@@ -24,6 +24,18 @@ TABLE_PRODUCTOS=$('#listProductos').DataTable( {
                     return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
                 }                
             },
+            {
+                "targets": 1,
+                "render": function ( data, type, row ) {
+                    if(row.image_path)
+                        return "<img width='50px' src='"+row.image_path+"'>";
+
+                        //return "<img width='50px' src='https://apis.miapp.syslacsdev.com/api/v1/files/archivo1.jpg'>";
+                        
+                    else
+                        return "";
+                }                
+            },
             { data: 'codigo' },
             { data: 'nombre' },
             {
@@ -68,7 +80,7 @@ function showNewProducto()
 
     
 
-    var url="/views/productos/frm-new-producto.html?v=3.0";
+    var url="/views/productos/frm-new-producto.html?v=4.0";
 
     $('#modalContainer1').load(url, function (result) {
 

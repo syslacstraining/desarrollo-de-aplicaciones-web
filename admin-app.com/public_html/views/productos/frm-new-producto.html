@@ -22,6 +22,13 @@
 
                     <div class="col-md-12">
                       <div class="form-group">
+                          <label for="ddlCategoria">Imagen</label>
+                          <input type="file" name="fImagen" id="fImagen">
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group">
                           <label for="ddlCategoria">Categoría</label>
                           <select class="custom-select" id="ddlCategoria">
                             <option value="" selected>Selecciona una opcion...</option>
@@ -108,36 +115,85 @@ $(document).ready(function(){
 $(function () {
   $.validator.setDefaults({
     submitHandler: function () {
-      
-
-    	$.ajax({
-			method:"POST",
-      headers: {
-                    Authorization: 'Bearer '+_access_token
-            },
-			url:APIS_URL+"/api/v1/productos",
-			data:{
+     
+     producto= 
+      {
         codigo:$("#txtCodigo").val(),
         nombre:$("#txtNombre").val(),
         precio:$("#txtPrecio").val(),
         categoria_id:$("#ddlCategoria").val()
+      };
+      
+      var fileInput = document.getElementById('fImagen');
+      var fileMeta={};
+
+      
+      if(!fileInput)
+      {
+        saveProducto(producto);
+        return;
       }
-			
+      else
+      {
+        fileInfo=fileInput.files[0];
+
+        arrayName=fileInfo.name.split(".");
+
+        fileMeta.nombre=arrayName[0];
+        fileMeta.extension=arrayName[1];
+
+        fileMeta.size=fileInfo.size;
+      }
+
+      //console.log(fileInput.files[0])
+      
+      var reader = new FileReader();
+      reader.readAsDataURL(fileInput.files[0]);
+
+      reader.onload = function (arg) {
+       
+        imageData = reader.result;
+        arryImageData=imageData.split(",");
+
+        fileMeta.data=arryImageData[1];
+
+        producto.image=fileMeta;
+
+        saveProducto(producto);
+      
+
+
+      };
+    
+      
+    }
+  });
+
+
+  function saveProducto(producto)
+  {
+    $.ajax({
+      method:"POST",
+      headers: {
+                    Authorization: 'Bearer '+_access_token
+            },
+      url:APIS_URL+"/api/v1/productos",
+      
+      data:producto
+      
       }).done(function(response){
-				
-				$("#txtCodigo").val("");
-				$("#txtNombre").val("");
+        
+        $("#txtCodigo").val("");
+        $("#txtNombre").val("");
         $("#txtPrecio").val("");
 
 
-				$('#mdCreate').modal('hide');
+        $('#mdCreate').modal('hide');
 
         updateDataTable();
-			});
+      });
+  }
 
-
-    }
-  });
   $('#frmNewProducto').validate({
     rules: {
       ddlCategoria: {
